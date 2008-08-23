@@ -1,0 +1,42 @@
+diff --git a/src/org/jruby/javasupport/Java.java b/src/org/jruby/javasupport/Java.java
+index a260d3c..fecc4f2 100644
+--- a/src/org/jruby/javasupport/Java.java
++++ b/src/org/jruby/javasupport/Java.java
+@@ -1063,6 +1063,18 @@ public class Java implements Library {
+         return result;
+     }
+     
++    public static int argsHashCode(Class[] a) {
++        if (a == null)
++            return 0;
++ 
++        int result = 1;
++ 
++        for (Class element : a)
++            result = 31 * result + (element == null ? 0 : element.hashCode());
++ 
++        return result;
++    }
++    
+     public static int argsHashCode(IRubyObject a0) {
+         return 31 + classHashCode(a0);
+     }
+@@ -1529,6 +1541,7 @@ public class Java implements Library {
+         final Ruby runtime = recv.getRuntime();
+ 
+         // Create list of interface names to proxy (and make sure they really are interfaces)
++        // Also build a hashcode from all classes to use for retrieving previously-created impl
+         Class[] interfaces = new Class[javaClasses.length];
+         for (int i = 0; i < javaClasses.length; i++) {
+             if (!(javaClasses[i] instanceof JavaClass) || !((JavaClass) javaClasses[i]).interface_p().isTrue()) {
+@@ -1537,8 +1550,8 @@ public class Java implements Library {
+             interfaces[i] = ((JavaClass) javaClasses[i]).javaClass();
+         }
+         
+-        // TODO: cache this class!
+-        String implClassName = "InterfaceImpl" + wrapper.getMetaClass().hashCode();
++        int interfacesHashCode = argsHashCode(interfaces);
++        String implClassName = "InterfaceImpl" + interfacesHashCode;
+         Class proxyImplClass;
+         try {
+             proxyImplClass = Class.forName(implClassName, true, runtime.getJRubyClassLoader());

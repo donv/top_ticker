@@ -1,4 +1,4 @@
-#!/usr/bin/env jruby
+#!/usr/bin/env jruby-trunk/bin/jruby
 
 require 'java'
 require 'rbconfig'

@@ -6,4 +6,6 @@
 	<pathentry path="GEM_LIB/sources-0.0.1/lib" type="var"/>
 	<pathentry path="GEM_LIB/jruby-openssl-0.2.3/lib" type="var"/>
 	<pathentry path="GEM_LIB/sources-0.0.1/lib" type="var"/>
+	<pathentry path="GEM_LIB/jruby-openssl-0.2.3/lib" type="var"/>
+	<pathentry path="GEM_LIB/sources-0.0.1/lib" type="var"/>
 </loadpath>

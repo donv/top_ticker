@@ -30,6 +30,8 @@ class Ticker
         menuItem = MenuItem.new(menu, SWT::PUSH)
         menuItem.setText("Exit")
         menuItem.addSelectionListener {exit}
+      else
+        raise "System Tray is not supported!"
       end
       white = black = nil
       @display.syncExec do
