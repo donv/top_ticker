@@ -21,9 +21,11 @@ begin
     loop do
       output << line = io.readline
       if line.chomp.empty?
-        lines = output.scan(/^\s*(\d+) +(\w+?) +(\d+) +(\d+) +(\d+.?) +(\d+.?) +(\d+.?) +(.) +(.+?) +(.+?) +(.+?) +(.+)$/)
+        lines = output.scan(/^\s*(\d+)\s+(\w+?)\s+(\d+)\s+(\d+)\s+(\d+.?)\s+(\d+.?)\s+(\d+.?)\s+(.)\s+(.+?)\s+(.+?)\s+(.+?)\s+(.+)$/)
         unless lines.empty?
-          t.message = (0..2).map {|i| "#{lines[i].last.strip} #{lines[i][8]}%  -  "}.join
+          t.message = lines[0..2].map do |line| 
+            "#{line.last.strip} #{line[8]}%  -  "
+          end.join
         end
         output = ''
       end
